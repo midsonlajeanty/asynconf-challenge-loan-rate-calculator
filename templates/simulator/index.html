@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "loading.html" %}
+{% include "simulator/steps/completed.html" %}
+
+<div x-show.transition="step != 'complete' && step != 'loading'">	
+    
+    {% include "simulator/navigation/top.html" %}
+
+    <!-- Step Content -->
+    <div class="py-10">	
+        
+        {% include "simulator/steps/vehicle-type.html" %}
+
+        {% include "simulator/steps/energy.html" %}
+
+        {% include "simulator/steps/mileage.html" %}
+
+        {% include "simulator/steps/year.html" %}
+
+        {% include "simulator/steps/passenger.html" %}
+    </div>
+    <!-- / Step Content -->
+</div>
+{% endblock content %}

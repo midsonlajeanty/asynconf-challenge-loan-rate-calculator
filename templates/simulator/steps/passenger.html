@@ -1,0 +1,26 @@
+<div x-show.transition.in="step === 5">
+    <div class="mb-5">
+        <div class="m-auto grid grid-cols-2 gap-4">
+            {% for ajustement in loan_rates_adjustments %}
+                <label
+                    class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm">
+                    <div class="text-teal-600 mr-3">
+                        <input type="radio" x-model="ajustement" value="{{ ajustement.pk }}" class="form-radio focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div>
+                        <h3 class="select-none text-lg font-bold text-gray-700">{{ ajustement.nb_passenger }} Passager(s)</h3>
+                        <small class="select-none">
+                            Ajustement de 
+                            {% if ajustement.type == 'bonus' %}
+                                <span class="text-green-600">{{ ajustement.display_rate  }}</span>
+                            {% else %}
+                                <span class="text-red-600">{{ ajustement.display_rate  }}</span>
+                            {% endif %}
+                        </small>
+                    </div>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>

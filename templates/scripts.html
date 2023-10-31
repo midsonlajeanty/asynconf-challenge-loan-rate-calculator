@@ -1,0 +1,94 @@
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+    function app() {
+        return {
+            step: 1, 
+
+            vehicle_type: null,
+            energy: null,
+            mileage: null,
+            year: null,
+            ajustement: null,
+
+            rate: '',
+
+            next() {
+                if (this.step == 1 && this.vehicle_type == null) {
+                    toastr.error('Selectionnez le type de véhicule');
+                    return;
+                }
+
+                if (this.step == 2 && this.energy == null) {
+                    toastr.error('Selectionnez le type de carburant');
+                    return;
+                }
+
+                if (this.step == 3 && this.mileage == null) {
+                    toastr.error('Selectionnez le kilométrage annuel');
+                    return;
+                }
+
+                if (this.step == 4 && this.year == null) {
+                    toastr.error('Selectionnez l\'année de mise en circulation');
+                    return;
+                }
+                
+                this.step++;
+            },
+
+            async submitData() {
+                if (this.step == 5 && this.ajustement == null) {
+                    toastr.error('Selectionnez le nombre de passagers');
+                    return;
+                }
+
+                this.step = 'loading'
+
+                const body = {
+                    vehicle_type: this.vehicle_type,
+                    energy: this.energy,
+                    mileage: this.mileage,
+                    year: this.year,
+                    ajustement: this.ajustement,
+                }
+                
+                const response = await fetch('/results/', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify(body),
+                })
+
+                const data = await response.json();
+                console.log(data);
+
+                if (response.status == 200 && data.status == 'success') {
+                    this.step = 'complete';
+                    this.rate = data.data.rate;
+                } else {
+                    this.step = 5;
+                    toastr.error(data.message);
+                }
+            }
+        }
+    }
+</script>

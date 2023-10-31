@@ -1,0 +1,20 @@
+<div x-show.transition.in="step === 1">
+    <div class="mb-5">
+        <div class="m-auto grid grid-cols-2 gap-4">
+            {% for type in vehicle_types %}
+                <label
+                    class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-3 shadow-sm">
+                    <div class="text-teal-600 mr-3">
+                        <input type="radio" x-model="vehicle_type" value="{{ type.pk }}" class="form-radio focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div>
+                        <h3 class="select-none text-lg font-bold text-gray-700">{{ type.name }}</h3>
+                        <p class="select-none text-gray-700">{{ type.display_medium_weight }}</p>
+                        <small class="select-none">{{ type.note }} Point(s)</small>
+                    </div>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>

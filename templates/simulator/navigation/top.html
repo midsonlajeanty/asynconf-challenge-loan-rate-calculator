@@ -1,0 +1,33 @@
+<div class="border-b-2 py-4">
+    <div class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Etape: ${step} of 5`"></div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div class="flex-1">
+            <div x-show="step === 1">
+                <div class="text-lg font-bold text-gray-700 leading-tight">🚗 Type de véhicule</div>
+            </div>
+            
+            <div x-show="step === 2">
+                <div class="text-lg font-bold text-gray-700 leading-tight">🍃 Energie</div>
+            </div>
+
+            <div x-show="step === 3">
+                <div class="text-lg font-bold text-gray-700 leading-tight">⚙️ Kilometrage</div>
+            </div>
+
+            <div x-show="step === 4">
+                <div class="text-lg font-bold text-gray-700 leading-tight">🗓️ Année</div>
+            </div>
+
+            <div x-show="step === 5">
+                <div class="text-lg font-bold text-gray-700 leading-tight">🧑 Taux d'Ajustement par nombre de passagers</div>
+            </div>
+        </div>
+
+        <div class="flex items-center md:w-64">
+            <div class="w-full bg-white rounded-full mr-2">
+                <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" :style="'width: '+ parseInt(step / 5 * 100) +'%'"></div>
+            </div>
+            <div class="text-xs w-10 text-gray-600" x-text="parseInt(step / 5 * 100) +'%'"></div>
+        </div>
+    </div>
+</div>
